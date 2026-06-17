@@ -33,7 +33,7 @@ django-colorfield>=0.14
 git clone https://github.com/google-london-apprenticeships/DL-ZachE.git
 cd DL-ZachE
 ```
-2. Create virtual environment
+2. Create a virtual environment
 ```
 python -m venv venv
 source venv/bin/activate
@@ -44,14 +44,6 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-4. (Optional) If you want to test the program, you may wish to create a superuser.
-
-```
-python manage.py createsuperuser
-```
-And follow the instructions in terminal to create a super user.
-
-
 ### Dependencies
 Requires Django (developed using Django v6.0.6)
 Tested on Arch Linux (kernel 7.0.10-arch1-1)
@@ -59,18 +51,19 @@ Developed using Python 3.14.5
 
 ### Executing Program
 Simply host the application. To do so locally:
-1. Navigate to /ShoppingListApp
-2. Run the following
+1. Run the following
 
 ```
 python manage.py runserver 
 ```
 
-3. Visit local IP address in browser
+2. Visit local IP address in browser
 ```
 http://127.0.0.1:{port number goes here}/
 ```
 8000: http://127.0.0.1:8000/
+
+3. For immediate testing, sign in using the provided demo account (See Demo Account Section Above). Alternatively, you may create your own account or authenticate using Google.
 
 ### Updating after changes
 
