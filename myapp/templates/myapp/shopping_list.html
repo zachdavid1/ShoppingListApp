@@ -1,0 +1,192 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+    <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
+</head>
+
+<body>
+    <h1>Welcome to your Shopping List!</h1>
+
+    {% for element in items %}
+    <div class="item-card">
+
+
+
+        {% if not element.checked %}
+        <h3>{{element.item.item_name}}: £{{element.item.item_price}}</h3>
+        {% else %}
+        <h3><s>{{element.item.item_name}}: £{{element.item.item_price}}</s></h3>
+        {% endif %}
+
+
+        <div>
+            {% for tag in element.tags.all %}
+            <span class="tag" style="background-color: {{tag.tag_id.color}};">{{tag.tag_id.name}}</span>
+            {% empty %}
+            <p> No tags on this item </p>
+            {% endfor %}
+
+        </div>
+
+        <p>Quantity: {{element.quantity}} </p>
+        <form method="post" action="{% url 'update_quantity' element.id %}">
+            {% csrf_token %}
+            <button type="submit" name="action" value="add">+</button>
+            {% if element.quantity > 1 %}
+            <button type="submit" name="action" value='minus'>-</button>
+            {% endif %}
+
+        </form>
+
+        {% if element.item.image %}
+        <img src="{{ element.item.image.url }}" width="100" alt="{{element.item.item_name}}">
+        {% endif %}
+
+
+        <form method="post" action="{% url 'update_item_tag' element.id %}" class="tag-actions">
+            {% csrf_token %}
+            <select name="tag">
+                <option value="">Choose Tag</option>
+                {% for tag in tags %}
+                <option value="{{tag.id}}">{{tag.name}}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" name="action" value="add">Add Tag</button>
+            <button type="submit" name="action" value="remove">Remove Tag</button>
+            <button type="submit" name="action" value="clear">Clear All Tags</button>
+        </form>
+
+
+        <form method="post" action="{% url 'delete-item' element.id %}">
+            {% csrf_token %}
+            <button type="submit">Delete Item</button>
+        </form>
+
+        <form method="post" action="{% url 'toggle' element.id %}">
+            {% csrf_token %}
+            <input type="checkbox" onchange="this.form.submit()" {% if element.checked %}checked{% endif %}> Bought
+        </form>
+
+
+    </div>
+
+
+
+    {% endfor %}
+
+
+    <div class="nav-buttons">
+        <form method="post" action="{% url 'clear-list' %}">
+            {% csrf_token %}
+            <button type="submit">Clear My List</button>
+        </form>
+
+        <form method="post" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+
+        <form method="post" action="{% url 'inventory' %}">
+            {% csrf_token %}
+            <button type="submit">Visit Inventory</button>
+        </form>
+    </div>
+    <h2> Current Tags </h2>
+
+    <ul>
+        {% for tag in tags %}
+        <li>
+            {{tag.name}}
+            <span
+                style="display:inline-block; width:20px; height:20px; background-color:{{ tag.color }}; border:1px solid #ccc; border-radius:3px; vertical-align:middle;"></span>
+            <form method="post" action="{% url 'delete-tag' tag.id%}">
+                {% csrf_token %}
+                <button type="submit">Delete Tag</button>
+            </form>
+        </li>
+
+        {% empty %}
+        No current tags
+        {% endfor %}
+    </ul>
+
+
+
+    <h2>Create a tag</h2>
+    <form method="post" action="{% url 'create-tag' %}">
+        {% csrf_token %}
+        {{TagForm}}
+        <button type="submit">Submit Tag</button>
+    </form>
+
+
+
+    <h2>Search Inventory</h2>
+
+    <form method="get">
+        <input type="text" name="search_query" value={{search_query}}>
+        <button type="submit">Search</button>
+    </form>
+
+    {% for item in inventory_items %}
+    <div class="item-card">
+        <h3>{{ item.item_name }}</h3>
+        <p>Price: £{{ item.item_price }}</p>
+        {% if item.image %}
+        <img src="{{ item.image.url }}" width="100" alt="{{ item.item_name }}">
+        {% endif %}
+
+        <form method="post" action="{% url 'add-item' item.id %}">
+            {% csrf_token %}
+            <button type="submit">Add to List</button>
+        </form>
+    </div>
+
+
+    {% empty %}
+    <p>No inventory items found.</p>
+    {% endfor %}
+
+    <div class="shopping_list_summary">
+        <table class="price-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>All</th>
+                    <th>Bought</th>
+                    <th>To Buy</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>All Items</th>
+                    <td>£{{all_price}}</td>
+                    <td>£{{bought_price}}</td>
+                    <td>£{{not_bought_price}}</td>
+                </tr>
+                {% for tag_price in tag_prices %}
+                <tr>
+                    <th>
+                        <span class="tag" style="background-color: {{ tag_price.color }};">{{ tag_price.name }}</span>
+                    </th>
+                    <td>£{{tag_price.all_price}}</td>
+                    <td>£{{tag_price.bought_price}}</td>
+                    <td>£{{tag_price.not_bought_price}}</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+</body>
+
+</html>

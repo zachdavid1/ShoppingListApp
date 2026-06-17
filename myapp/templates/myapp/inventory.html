@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+    <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
+</head>
+
+<body>
+    <h1>Welcome to the Inventory!</h1>
+    <form method="post" action="{% url 'get_shopping_list' %}">
+        {% csrf_token %}
+        <button type="submit">Back to list</button>
+    </form>
+
+    <h3> Add your own items to Inventory:</h3>
+
+    <form method="post" , action="{% url 'add_to_inventory' %}">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit">Add to Inventory</button>
+    </form>
+
+    {% for element in items %}
+    <div class="item-card">
+        <h3>{{element.item_name}}: £{{element.item_price}}</h3>
+        {% if element.is_global %}
+        <p> Global </p>
+        {% else %}
+        <p>User created: {{element.user_created}}</p>
+        {% endif %}
+        {% if element.image %}
+        <img src="{{ element.image.url }}" width="100" alt="{{element.item_name}}">
+        {% endif %}
+        {% if not element.is_global and element.user_created == request.user %}
+        <form method="post" action="{% url 'remove_from_inventory' element.id %}">
+            {% csrf_token %}
+            <button type="submit">Delete Item</button>
+        </form>
+        {% endif %}
+
+    </div>
+    {% endfor %}
+
+
+
+
+
+
+
+</body>
+
+</html>

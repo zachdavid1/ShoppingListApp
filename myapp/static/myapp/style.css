@@ -1,0 +1,246 @@
+/* ── Variables ── */
+:root {
+    --dark-blue: #1a2b4a;
+    --mid-blue: #2c4a7c;
+    --light-blue: #3d6cb9;
+    --bg: #eef0f4;
+    --card-bg: #ffffff;
+    --border: #d0d5dd;
+    --text: #1a2b4a;
+    --muted: #6b7280;
+    --danger: #c0392b;
+    --danger-hover: #a93226;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+
+h1 {
+    font-size: 2em;
+    color: var(--dark-blue);
+    border-bottom: 3px solid var(--light-blue);
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+}
+
+h2 {
+    font-size: 1.2em;
+    color: var(--mid-blue);
+    margin-top: 36px;
+    margin-bottom: 12px;
+}
+
+h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.05em;
+    color: var(--dark-blue);
+}
+
+p {
+    color: var(--muted);
+    margin: 4px 0;
+    font-size: 0.95em;
+}
+
+
+
+
+
+button {
+    background-color: var(--mid-blue);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 3px 2px;
+    font-size: 0.88em;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+}
+
+button:hover {
+    background-color: var(--light-blue);
+}
+
+
+button[value="remove"],
+button[name="action"][value="clear"],
+button[type="submit"].danger {
+    background-color: var(--danger);
+}
+
+button[value="remove"]:hover,
+button[name="action"][value="clear"]:hover {
+    background-color: var(--danger-hover);
+}
+
+
+input[type="text"],
+input[type="number"],
+select {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    margin: 4px 2px;
+    font-size: 0.93em;
+    background-color: white;
+    color: var(--text);
+}
+
+input[type="text"]:focus,
+select:focus {
+    outline: 2px solid var(--light-blue);
+    border-color: var(--light-blue);
+}
+
+
+.item-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--mid-blue);
+    border-radius: 8px;
+    padding: 18px;
+    margin: 14px 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+
+.tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin: 2px;
+    color: white;
+    letter-spacing: 0.3px;
+}
+
+
+.nav-buttons {
+    display: flex;
+    gap: 8px;
+    margin: 24px 0;
+    flex-wrap: wrap;
+}
+
+.nav-buttons button {
+    background-color: var(--dark-blue);
+    font-size: 0.9em;
+    padding: 9px 18px;
+}
+
+.nav-buttons button:hover {
+    background-color: var(--mid-blue);
+}
+
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95em;
+}
+
+img {
+    border-radius: 6px;
+    display: block;
+    margin-top: 10px;
+    border: 1px solid var(--border);
+}
+
+
+.checked-item {
+    text-decoration: line-through;
+    color: #aaa;
+}
+
+
+input[type="checkbox"] {
+    accent-color: var(--mid-blue);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.tag-actions {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.tag-actions button {
+    padding: 2px 6px;
+    font-size: 0.75em;
+}
+
+
+.shopping_list_summary {
+    margin: 24px 0;
+    overflow-x: auto;
+}
+
+.price-table {
+    width: 100%;
+    max-width: 600px;
+    border-collapse: collapse;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.price-table th,
+.price-table td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.price-table thead th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    color: #555;
+}
+
+.price-table tbody th {
+    font-weight: 500;
+}
+
+.price-table td {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.price-table tbody tr:hover {
+    background-color: #fafafa;
+}
+
+.price-table .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 0.85rem;
+}
