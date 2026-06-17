@@ -31,7 +31,7 @@ django-colorfield>=0.14
 1. Clone the repository
 ```
 git clone https://github.com/google-london-apprenticeships/DL-ZachE.git
-cd project
+cd DL-ZachE
 ```
 2. Create virtual environment
 ```
